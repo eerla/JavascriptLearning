@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPSGame</title>
+    </head>
+
+    <body>
+        <script type="text/javascript" src="rpsgame.js"></script>
+        <script type="text/javascript"> 
+            function verifyChoice(choice) {
+                RPSGame(choice)
+        }
+        </script> 
+
+        <h1>Rock Paper Scissors</h1>
+        <button onclick="verifyChoice('Rock')" id="R">Rock</button>
+        <button onclick="verifyChoice('Paper')" id="P">Paper</button>
+        <button onclick="verifyChoice('Scissors')" id ="S">Scissors</button>
+        <p id="demo">Result</p>
+       
+    </body>
+
+</html>
