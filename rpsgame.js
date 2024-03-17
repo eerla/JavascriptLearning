@@ -4,7 +4,9 @@ function RPSGame(choice) {
     let result = '';
     const randomNumber = Math.random();
     let computerChoice = "";
+    const choices = ["Rock", "Paper", "Scissors"];
 
+    // Computer random choice calculation
     if (randomNumber >= 0 && randomNumber < 1/3) {
         computerChoice = "Rock";
     } else if (randomNumber >= 1/3 && randomNumber < 2/3) {
@@ -13,8 +15,12 @@ function RPSGame(choice) {
         computerChoice = "Scissors";
         }
 
-    // console.log("yourChoice: " + choice + "  computerChoice: " + computerChoice);
+    // random choice picking
+    if (choice === 'RandomChoice') { 
+        choice = choices[Math.floor(Math.random() * choices.length)]
+     }
 
+    // compare choices
     if (choice === computerChoice) {
         result = "Tie!";
     }
@@ -33,14 +39,6 @@ function RPSGame(choice) {
         result = "You Lose!";
     }
 
-    // console.log(result);
-
+    // update HTML demo attribute
     document.getElementById("demo").innerHTML = "You choose: " + choice +" "+ "Computer choose : " + computerChoice + " and Result: " + result;
 }
-
-
-
-
-
-
-

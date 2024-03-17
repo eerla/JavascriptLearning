@@ -5,18 +5,39 @@
     </head>
 
     <body>
-        <script type="text/javascript" src="rpsgame.js"></script>
-        <script type="text/javascript"> 
-            function verifyChoice(choice) {
-                RPSGame(choice)
-        }
-        </script> 
 
         <h1>Rock Paper Scissors</h1>
         <button onclick="verifyChoice('Rock')" id="R">Rock</button>
         <button onclick="verifyChoice('Paper')" id="P">Paper</button>
-        <button onclick="verifyChoice('Scissors')" id ="S">Scissors</button>
+        <button onclick="verifyChoice('Scissors')" id ="S">Scissors</button> 
         <p id="demo">Result</p>
+
+        <button id="datebutton">what is time now?</button>
+        <h2 id="date_button"></h2>
+
+        <button id="randombutton">Random Choice</button>
+
+        <script type="text/javascript" src="rpsgame.js"></script>
+        <script type="text/javascript"> 
+            function verifyChoice(choice) {
+                RPSGame(choice);
+        }
+        </script>
+
+        <script>
+        function verifyRandomChoice() {
+            RPSGame("RandomChoice");
+        }
+
+        document.getElementById("randombutton").addEventListener("click",verifyRandomChoice)
+
+        function getDate() {
+            let d = Date();
+            document.getElementById("date_button").innerHTML = d;
+        }
+
+        document.getElementById("datebutton").addEventListener("click",getDate)
+        </script>
        
     </body>
 
