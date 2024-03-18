@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPSGame</title>
+        <link rel="stylesheet" 
+        href="styles/rpsgame.css">
+    </head>
+
+    <body>
+
+        <h1>Rock Paper Scissors</h1>
+
+        <button class="move-button" 
+            onclick="verifyChoice('Rock')">
+            <img class = "move-icon" src="images/rock-emoji.png">
+        </button>
+
+        <button class="move-button" 
+            onclick="verifyChoice('Paper')">
+            <img class = "move-icon" src="images/paper-emoji.png">
+        </button>
+
+        <button class="move-button" 
+            onclick="verifyChoice('Scissors')">
+            <img class = "move-icon" src="images/scissors-emoji.png">
+        </button> 
+
+        <button class="move-button" 
+                id="randombutton">
+            <img class="move-icon" src="images/surprise-emoji.png">
+        </button>
+
+
+        <p id="demo">Result</p>
+        <h3 id="scores">Score</h3>
+        <button class = "reset-score-button" onclick="clearScores()" id="clear">Clear</button>
+
+        <button class = "reset-score-button" id="datebutton">what is time now?</button>
+        <h3 id="date_button"></h3>
+
+        <!-- load javascript into html -->
+        <script type="text/javascript" src="scripts/rpsgame.js"></script>
+       
+    </body>
+
+</html>
