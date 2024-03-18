@@ -1,4 +1,4 @@
-
+let scores = {wins: 0, Losses: 0, Draws: 0};
 
 function RPSGame(choice) {
     let result = '';
@@ -23,8 +23,7 @@ function RPSGame(choice) {
     // compare choices
     if (choice === computerChoice) {
         result = "Tie!";
-    }
-    else if (
+    } else if (
         (choice === "Rock" && computerChoice === "Scissors") 
         || (choice === "Paper" && computerChoice === "Rock") 
         || (choice === "Scissors" && computerChoice === "Paper")
@@ -33,12 +32,31 @@ function RPSGame(choice) {
 
     } else if (
         (choice === "Rock" && computerChoice === "Paper") 
-            || (choice === "Paper" && computerChoice === "Scissors") 
-            || (choice === "Scissors" && computerChoice === "Rock")
+        || (choice === "Paper" && computerChoice === "Scissors") 
+        || (choice === "Scissors" && computerChoice === "Rock")
     ) {
         result = "You Lose!";
     }
 
+    // update scores
+    if (result === "You Win!") {
+        scores.wins++;
+    } else if (result === "You Lose!") {
+        scores.Losses++;
+    } else {
+        scores.Draws++;
+    }
+
+    document.getElementById("scores").innerHTML = "Wins: " + scores.wins + ". Losses: " + scores.Losses + ". Draws: " + scores.Draws
+
     // update HTML demo attribute
     document.getElementById("demo").innerHTML = "You choose: " + choice +" "+ "Computer choose : " + computerChoice + " and Result: " + result;
-}
+};
+
+function clear() {
+    scores = {wins: 0, Losses: 0, Draws: 0};
+    
+    document.getElementById("scores").innerHTML = "Wins: " + scores.wins + ". Losses: " + scores.Losses + ". Draws: " + scores.Draws;
+
+    document.getElementById("demo").innerHTML = "Result";
+};

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Get Time on Button Click
+    </title>
+</head>
+<body>
+  <h1 id="currentTime"></h1>
+  <button id="getTimeBtn">Get Current Time</button>
+
+  <script>
+    // Function to get the current time
+    function getCurrentTime() {
+      // Create a new Date object
+      const now = new Date();
+
+      // Get the current time components
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      // Format the time as a string
+      const currentTime = `${hours}:${minutes}:${seconds}`;
+
+      // Update the HTML element with the current time
+      document.getElementById('currentTime').textContent = currentTime;
+    }
+
+    // Add event listener to the button
+    document.getElementById('getTimeBtn').addEventListener('click', getCurrentTime);
+  </script>
+</body>
+</html>

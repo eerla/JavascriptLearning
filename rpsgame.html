@@ -7,36 +7,47 @@
     <body>
 
         <h1>Rock Paper Scissors</h1>
+
         <button onclick="verifyChoice('Rock')" id="R">Rock</button>
         <button onclick="verifyChoice('Paper')" id="P">Paper</button>
         <button onclick="verifyChoice('Scissors')" id ="S">Scissors</button> 
-        <p id="demo">Result</p>
-
-        <button id="datebutton">what is time now?</button>
-        <h2 id="date_button"></h2>
-
         <button id="randombutton">Random Choice</button>
+        <p id="demo">Result</p>
+        <h3 id="scores">Score</h3>
+        <button onclick="clearScores()" id="clear">Clear</button>
+
 
         <script type="text/javascript" src="rpsgame.js"></script>
         <script type="text/javascript"> 
             function verifyChoice(choice) {
                 RPSGame(choice);
-        }
+            };
         </script>
 
+        <button id="datebutton">what is time now?</button>
+        <h3 id="date_button"></h3>
+
         <script>
-        function verifyRandomChoice() {
-            RPSGame("RandomChoice");
-        }
 
-        document.getElementById("randombutton").addEventListener("click",verifyRandomChoice)
+            // verify random choice
+            function verifyRandomchoice() {
+                RPSGame("RandomChoice");
+            }
 
-        function getDate() {
-            let d = Date();
-            document.getElementById("date_button").innerHTML = d;
-        }
+            // click the random button
+            document.getElementById("randombutton").addEventListener("click",verifyRandomchoice);
 
-        document.getElementById("datebutton").addEventListener("click",getDate)
+            // clear scoreboard
+            function clearScores() {
+                clear();
+            }
+
+            // shows date
+            function getDate() {
+                document.getElementById("date_button").innerHTML = Date();
+            }
+
+            document.getElementById("datebutton").addEventListener("click",getDate)
         </script>
        
     </body>
