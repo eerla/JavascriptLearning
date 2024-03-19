@@ -2,6 +2,7 @@ body {
     background-color: rgb(25, 25, 25);
     color: white;
     font-family: Arial;
+    padding: 50px;
 }
 
 .title {
@@ -41,4 +42,10 @@ body {
 
 .score {
     margin-top: 60px;
+}
+
+.css-result {
+    font-size: 45px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }

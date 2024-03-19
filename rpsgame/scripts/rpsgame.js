@@ -58,9 +58,15 @@ function RPSGame(choice) {
     document.getElementById("scores").innerHTML = "Wins: " + scores.wins + ". Losses: " + scores.Losses + ". Draws: " + scores.Draws
 
     // update HTML demo attribute
-    const finalResult = "You choose: " + choice +", "+ "Computer choose : " + computerChoice + " and Result: " + result;
+    const finalResult = `You 
+        <img src="images/${choice.toLowerCase()}-emoji.png"
+            class="move-icon"> 
+        <img src="images/${computerChoice.toLowerCase()}-emoji.png"     class="move-icon">
+        Computer`;
 
+    document.getElementById("result").innerHTML = result;
     document.getElementById("demo").innerHTML = finalResult;
+    // `You ${choice}  ${computerChoice} Computer`;
 
     localStorage.setItem("js_scores", JSON.stringify(scores));
     localStorage.setItem("js_demo", finalResult);
@@ -73,6 +79,7 @@ function clear() {
     document.getElementById("scores").innerHTML = "Wins: " + scores.wins + ". Losses: " + scores.Losses + ". Draws: " + scores.Draws;
 
     document.getElementById("demo").innerHTML = "Result";
+    document.getElementById("result").innerHTML = "";
 };
 
 function verifyChoice(choice) {
