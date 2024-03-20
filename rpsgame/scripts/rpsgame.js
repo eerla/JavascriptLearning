@@ -1,12 +1,13 @@
+
 let scores = JSON.parse(localStorage.getItem('js_scores')) || {wins: 0, Losses: 0, Draws: 0};
 
-const pastScore = JSON.parse(localStorage.getItem('js_scores'));
+const pastScore = scores;
 const pastResult = localStorage.getItem('js_demo');
 
+// set screen
 document.getElementById("scores").innerHTML = "Wins: " + pastScore.wins + ". Losses: " + pastScore.Losses + ". Draws: " + pastScore.Draws;
-
-// update HTML demo attribute
 document.getElementById("demo").innerHTML = pastResult;
+document.getElementById("result").innerHTML = localStorage.getItem('res');
 
 function RPSGame(choice) {
     let result = '';
@@ -61,7 +62,7 @@ function RPSGame(choice) {
     const finalResult = `You 
         <img src="images/${choice.toLowerCase()}-emoji.png"
             class="move-icon"> 
-        <img src="images/${computerChoice.toLowerCase()}-emoji.png"     class="move-icon">
+        <img src="images/${computerChoice.toLowerCase()}-emoji.png" class="move-icon">
         Computer`;
 
     document.getElementById("result").innerHTML = result;
@@ -70,6 +71,7 @@ function RPSGame(choice) {
 
     localStorage.setItem("js_scores", JSON.stringify(scores));
     localStorage.setItem("js_demo", finalResult);
+    localStorage.setItem("res", result);
 };
 
 function clear() {
@@ -82,23 +84,6 @@ function clear() {
     document.getElementById("result").innerHTML = "";
 };
 
-function verifyChoice(choice) {
-    RPSGame(choice);
-};
-
-// verify random choice
-function verifyRandomchoice() {
-    RPSGame("RandomChoice");
-}
-
-// click the random button
-document.getElementById("randombutton").addEventListener("click",verifyRandomchoice);
-
-// clear scoreboard
-function clearScores() {
-    clear();
-}
-
 // shows date
 function getDate() {
     document.getElementById("date_button").innerHTML = Date();
@@ -106,3 +91,39 @@ function getDate() {
 
 // get date button
 document.getElementById("datebutton").addEventListener("click",getDate)
+
+// button event listners
+document.body.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        RPSGame("RandomChoice");
+    } else if (event.key === "r") {
+        RPSGame("Rock");
+    } else if (event.key === "p") {
+        RPSGame("Paper");
+    } else if (event.key === "s") {
+        RPSGame("Scissors");
+    } else if (event.key === "c") {
+        clear();
+    }
+});
+
+
+document.querySelector(".js-random-button").addEventListener("click",() => {
+        RPSGame("RandomChoice");
+});
+
+document.querySelector(".js-rock-button").addEventListener("click",() => {
+        RPSGame("Rock");
+});
+
+document.querySelector(".js-paper-button").addEventListener("click",() => {
+        RPSGame("Paper");
+});
+
+document.querySelector(".js-scissors-button").addEventListener("click",() => {
+        RPSGame("Scissors");
+});
+
+document.querySelector(".js-reset-score").addEventListener("click",() => {
+        clear();
+});
