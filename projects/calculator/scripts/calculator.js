@@ -1,27 +1,8 @@
 let calculation = localStorage.getItem('calculation') || '';
 document.getElementById('Result').innerHTML = calculation;
 
-// function updateCalculation(newValue) {
-//     calculation = calculation+newValue;
-//     setResult();
-// };
-
-// function eavlExpression() {
-//     calculation = eval(calculation);
-//     setResult();
-// };
-
-// function clearValue() {
-//     calculation = '';
-//     setResult();
-// };
-
-// function deleteValue() {
-//     calculation = calculation.slice(0, -1);
-//     setResult();
-// };
-
-queryObject = {
+// all button class, value
+const jsButtons = {
     ".js-1" : "1",
     ".js-2" : "2",
     ".js-3" : "3",
@@ -37,108 +18,56 @@ queryObject = {
     ".js-0" : "0",
     ".js-dot" : ".",
     ".js-divide": "/",
-    ".js-clear" : "",
-    ".js-delete" : "",
-    ".js-equal" : "",
+    ".js-clear" : "util",
+    ".js-delete" : "util",
+    ".js-equal" : "util",
 };
 
-
-// event listeners
-// function makeEventListner(classValue, calValue) {
-//     if (classValue === ".js-clear") {
-//         document.querySelector(".js-clear").addEventListener("click",clearValue);
-//     };
-
-//     if (classValue === ".js-delete") {
-//         document.querySelector(".js-delete").addEventListener("click",deleteValue);
-//     };
-
-//     if (classValue === ".js-equal") {
-//         document.querySelector(".js-equal").addEventListener("click", () => {
-//             eavlExpression();
-//         })
-//     };
-
-//     // if (![".js-clear", ".js-delete", ".js-equal"].includes(obj)) {
-//     //     document.querySelector(`${classValue}`).addEventListener("click",() => {
-//     //         updateCalculation(`${calValue}`);
-//     //         })
-//     //     };
-// };
-
-// for (obj in queryObject) {
-//     makeEventListner(obj, queryObject[obj]);
-// };
-
-
-// 
-let calcfuncs = {
-    "update": function updateCalculation(newValue) {
-                calculation = calculation+newValue;
-            },
-    "clear": function clearValue() {
-                calculation = '';
-            },
-    "delete": function deleteValue(){
-                calculation = calculation.slice(0, -1);
-            },
-    "equal": function eavlExpression(exp) {
-                calculation = eval(exp);
-            },
+// util button name should match its func name ".js-<funcName>"
+// for listners, key board to js cls btn (".js-<funcName>") 
+const utilsmap = {
+    "Enter": ".js-equal", 
+    "Backspace": ".js-clear", 
+    "Delete": ".js-delete"
 };
 
-function calculate(action, value='') {
+// calculator functions
+const calcfuncs = {
+    "update": (newValue) => calculation += newValue,
+    "clear": () => calculation = '',
+    "delete": () => calculation = calculation.slice(0, -1),
+    "equal": () => calculation = eval(calculation).toString(),
+};
+
+// initialize screen listeners
+for (btn in jsButtons) {
+    makeScreenEventListner(btn, jsButtons[btn]);
+};
+
+// initialize keyboard listners
+keyboardListener();
+
+const calculate = function calculate(action, value='') {
     calcfuncs[action](value);
     localStorage.setItem('calculation', calculation);
     document.getElementById('Result').innerHTML = calculation;
 };
 
 // keyboard listeners
-document.body.addEventListener("keydown",(event) => {
-    
-    for (obj in Object.values(queryObject)) {
-        if (event.key === Object.values(queryObject)[obj]) {
-            calculate("update", event.key);
-        } else if (event.key === 'Enter') {
-            calculate("equal", calculation);
-        } else if (event.key === 'Delete') {
-            calculate("clear");
-        }
-}});
+function keyboardListener() {
+    document.body.addEventListener("keydown",(event) => {
+            if (Object.values(jsButtons).includes(event.key)) {
+                calculate("update", event.key);
+            } else if (event.key in utilsmap) {
+                calculate(utilsmap[event.key].split("-")[1]);
+            }
+    })};
 
-document.body.addEventListener("keydown",(event) => {
-    if (event.key === 'Backspace') {
-        calculate("delete");
-    }
-});
-
-// event listeners
-function makeEventListner2(classValue, calValue) {
-    if (classValue === ".js-clear") {
-        document.querySelector(".js-clear").addEventListener("click", () => {
-            calculate("clear");
-        });
+// screen listeners
+function makeScreenEventListner(classValue, calValue) {
+    if (Object.values(utilsmap).includes(classValue)) {
+        document.querySelector(`${classValue}`).addEventListener("click",() => calculate(`${classValue.split("-")[1]}`));
+    } else {
+        document.querySelector(`${classValue}`).addEventListener("click",() => calculate("update", `${calValue}`))
     };
-
-    if (classValue === ".js-delete") {
-        document.querySelector(".js-delete").addEventListener("click", () => {
-            calculate("delete");
-        });
-    };
-
-    if (classValue === ".js-equal") {
-        document.querySelector(".js-equal").addEventListener("click", () => {
-            calculate("equal", `${calculation}`);
-        })
-    };
-
-    if (![".js-clear", ".js-delete", ".js-equal"].includes(classValue)) {
-        document.querySelector(`${classValue}`).addEventListener("click",() => {
-            calculate("update", `${calValue}`);
-        })
-    };
-};
-
-for (obj in queryObject) {
-    makeEventListner2(obj, queryObject[obj]);
 };
