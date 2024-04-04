@@ -24,7 +24,7 @@ const jsButtons = {
 };
 
 // util button name should match its func name ".js-<funcName>"
-// for listners, key board to js cls btn (".js-<funcName>") 
+// for listners, key board to js btn_cls btn (".js-<funcName>") 
 const utilsmap = {
     "Enter": ".js-equal", 
     "Backspace": ".js-clear", 
@@ -36,38 +36,28 @@ const calcfuncs = {
     "update": (newValue) => calculation += newValue,
     "clear": () => calculation = '',
     "delete": () => calculation = calculation.slice(0, -1),
-    "equal": () => calculation = eval(calculation).toString(),
+    "equal": () => (calculation === '') ? (calculation=calculation) : (calculation=eval(calculation).toString()),
 };
 
 // initialize screen listeners
-for (btn in jsButtons) {
-    makeScreenEventListner(btn, jsButtons[btn]);
-};
+Object.keys(jsButtons).forEach(btn_cls => {
+    (Object.values(utilsmap).includes(btn_cls)) ? 
+    (document.querySelector(`${btn_cls}`).addEventListener("click", () => calculate(`${btn_cls.split("-")[1]}`))) : 
+    (document.querySelector(`${btn_cls}`).addEventListener("click", () => calculate("update", `${jsButtons[btn_cls]}`)));
+});
+
 
 // initialize keyboard listners
-keyboardListener();
+document.body.addEventListener("keydown",(event) => {
+    if (Object.values(jsButtons).includes(event.key)) {
+        calculate("update", event.key);
+    } else if (event.key in utilsmap) {
+        calculate(utilsmap[event.key].split("-")[1]);
+    }
+});
 
 const calculate = function calculate(action, value='') {
     calcfuncs[action](value);
     localStorage.setItem('calculation', calculation);
     document.getElementById('Result').innerHTML = calculation;
-};
-
-// keyboard listeners
-function keyboardListener() {
-    document.body.addEventListener("keydown",(event) => {
-            if (Object.values(jsButtons).includes(event.key)) {
-                calculate("update", event.key);
-            } else if (event.key in utilsmap) {
-                calculate(utilsmap[event.key].split("-")[1]);
-            }
-    })};
-
-// screen listeners
-function makeScreenEventListner(classValue, calValue) {
-    if (Object.values(utilsmap).includes(classValue)) {
-        document.querySelector(`${classValue}`).addEventListener("click",() => calculate(`${classValue.split("-")[1]}`));
-    } else {
-        document.querySelector(`${classValue}`).addEventListener("click",() => calculate("update", `${calValue}`))
-    };
 };
